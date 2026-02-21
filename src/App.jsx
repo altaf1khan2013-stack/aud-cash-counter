@@ -107,19 +107,21 @@ export default function CashCounter() {
 
   return (
     <div style={{
-      minHeight: "100vh",
       background: "linear-gradient(180deg, #0a0a14 0%, #111827 100%)",
       color: "#e8e8f0",
       fontFamily: "'SF Pro Display', -apple-system, 'Helvetica Neue', sans-serif",
       WebkitFontSmoothing: "antialiased",
-      display: "flex", flexDirection: "column",
+      minHeight: "100vh",
     }}>
 
       {/* Top bar */}
       <div style={{
+        position: "sticky", top: 0, zIndex: 20,
+        background: "rgba(10,10,20,0.95)",
+        backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
         display: "flex", justifyContent: "space-between", alignItems: "center",
         padding: "12px 14px 8px",
-        paddingTop: "max(12px, env(safe-area-inset-top))",
+        paddingTop: "max(14px, env(safe-area-inset-top))",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: "#818cf8", textTransform: "uppercase" }}>
@@ -141,8 +143,8 @@ export default function CashCounter() {
         </div>
       </div>
 
-      {/* Main: Denomination buttons LEFT | Qty + Total RIGHT */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "6px 10px", paddingBottom: 420, WebkitOverflowScrolling: "touch" }}>
+      {/* Denomination rows - normal page scroll */}
+      <div style={{ padding: "6px 10px", paddingBottom: 420 }}>
         {DENOMINATIONS.map((d) => {
           const qty = quantities[d.value];
           const rowTotal = d.value * qty;
@@ -271,7 +273,6 @@ export default function CashCounter() {
           display: "flex", gap: 5, marginTop: 8, paddingTop: 8,
           borderTop: "1px solid rgba(255,255,255,0.06)",
         }}>
-          {/* Grand Total */}
           <div style={{
             flex: 1.3, padding: "7px 10px", borderRadius: 10,
             background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)",
@@ -282,7 +283,6 @@ export default function CashCounter() {
             </div>
           </div>
 
-          {/* Float — tappable */}
           <button
             onClick={() => { setActiveRow(null); setInputBuffer(""); setEditingFloat(!editingFloat); setFloatInput(String(floatAmount)); }}
             style={{
@@ -298,7 +298,6 @@ export default function CashCounter() {
             </div>
           </button>
 
-          {/* Net */}
           <div style={{
             flex: 1.1, padding: "7px 10px", borderRadius: 10,
             background: netAmount >= 0 ? "rgba(34,197,94,0.06)" : "rgba(239,68,68,0.06)",
@@ -391,7 +390,6 @@ export default function CashCounter() {
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         button:active { transform:scale(0.96); }
-        html { overflow-x:hidden; }
         ::-webkit-scrollbar { display:none; }
       `}</style>
     </div>
