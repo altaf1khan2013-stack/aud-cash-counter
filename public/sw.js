@@ -1,22 +1,14 @@
-const CACHE_NAME = 'cash-counter-v1';
+const CACHE_NAME = 'cash-counter-v2';
 
-// Cache app shell on install
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        '/',
-        '/index.html',
-        '/manifest.json',
-        '/icon-192.png',
-        '/icon-512.png',
-      ]);
+      return cache.addAll(['/', '/index.html']);
     })
   );
-  self.skipWaiting();
 });
 
-// Clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
@@ -26,7 +18,6 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Network first, fallback to cache
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
