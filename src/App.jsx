@@ -119,6 +119,7 @@ export default function CashCounter() {
       <div style={{
         display: "flex", justifyContent: "space-between", alignItems: "center",
         padding: "12px 14px 8px",
+        paddingTop: "max(12px, env(safe-area-inset-top))",
         borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}>
         <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: "#818cf8", textTransform: "uppercase" }}>
@@ -141,7 +142,7 @@ export default function CashCounter() {
       </div>
 
       {/* Main: Denomination buttons LEFT | Qty + Total RIGHT */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "6px 10px", paddingBottom: 350 }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "6px 10px", paddingBottom: 420, WebkitOverflowScrolling: "touch" }}>
         {DENOMINATIONS.map((d) => {
           const qty = quantities[d.value];
           const rowTotal = d.value * qty;
